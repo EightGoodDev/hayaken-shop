@@ -1,0 +1,27 @@
+import { ImageResponse } from "next/og";
+
+export const dynamic = "force-static";
+
+export function GET() {
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(135deg,#e8631a,#d1495b)",
+          color: "#fff",
+          fontSize: 300,
+          fontWeight: 800,
+        }}
+      >
+        K
+      </div>
+    ),
+    { width: 512, height: 512 },
+  );
+}
