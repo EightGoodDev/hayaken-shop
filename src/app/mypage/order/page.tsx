@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { usePoints } from "@/components/points-provider";
 import {
@@ -27,8 +27,8 @@ function formatDate(iso: string): string {
   ).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
 }
 
-export default function OrderDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
+function OrderDetail() {
+  const id = useSearchParams().get("id") ?? "";
   const router = useRouter();
   const { add } = useCart();
   const { apply } = usePoints();
@@ -209,5 +209,19 @@ export default function OrderDetailPage({ params }: { params: Promise<{ id: stri
         </aside>
       </div>
     </div>
+  );
+}
+
+export default function OrderDetailPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container">
+          <p style={{ padding: "40px 0", color: "var(--muted)" }}>読み込み中…</p>
+        </div>
+      }
+    >
+      <OrderDetail />
+    </Suspense>
   );
 }

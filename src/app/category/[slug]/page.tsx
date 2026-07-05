@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CATEGORIES, getCategory, productsByCategory } from "@/lib/catalog";
 import { CategoryBrowser } from "@/components/category-browser";
 
@@ -16,33 +17,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function CategoryPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ sub?: string }>;
 }) {
   const { slug } = await params;
-  const { sub } = await searchParams;
   const cat = getCategory(slug);
   if (!cat) notFound();
 
   const products = productsByCategory(slug);
-  const validSub = sub && products.some((p) => p.sub === sub) ? sub : undefined;
 
   return (
     <div className="container">
       <nav className="breadcrumb" aria-label="パンくず">
         <Link href="/">トップ</Link>
         <span>›</span>
-        {validSub ? (
-          <>
-            <Link href={`/category/${slug}`}>{cat.name}</Link>
-            <span>›</span>
-            <span>{validSub}</span>
-          </>
-        ) : (
-          <span>{cat.name}</span>
-        )}
+        <span>{cat.name}</span>
       </nav>
 
       <div className="section-head" style={{ marginTop: 8 }}>
@@ -67,7 +56,9 @@ export default async function CategoryPage({
         ))}
       </div>
 
-      <CategoryBrowser products={products} initialSub={validSub} />
+      <Suspense fallback={<p style={{ padding: "24px 0", color: "var(--muted)" }}>読み込み中…</p>}>
+        <CategoryBrowser products={products} />
+      </Suspense>
     </div>
   );
 }

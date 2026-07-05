@@ -114,7 +114,7 @@ export default function MyPage() {
                     ほか {o.items.length - 3} 商品
                   </div>
                 ) : null}
-                <Link href={`/mypage/orders/${o.id}`} className="btn btn-ghost" style={{ marginTop: 12, padding: "8px 18px", fontSize: 13 }}>
+                <Link href={`/mypage/order?id=${o.id}`} className="btn btn-ghost" style={{ marginTop: 12, padding: "8px 18px", fontSize: 13 }}>
                   注文の詳細を見る →
                 </Link>
               </div>

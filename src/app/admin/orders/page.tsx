@@ -194,7 +194,7 @@ export default function AdminOrders() {
                   <td style={{ textAlign: "right" }}>{o.itemCount}</td>
                   <td style={{ textAlign: "right", fontWeight: 700 }}>{yen(o.total)}</td>
                   <td style={{ textAlign: "right" }}>
-                    <Link href={`/mypage/orders/${o.id}`} className="admin-link">詳細</Link>
+                    <Link href={`/mypage/order?id=${o.id}`} className="admin-link">詳細</Link>
                   </td>
                 </tr>
               ))

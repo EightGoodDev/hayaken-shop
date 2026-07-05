@@ -1,9 +1,10 @@
+"use client";
+
 import Link from "next/link";
-import type { Metadata } from "next";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { CATEGORIES, searchProducts } from "@/lib/catalog";
 import { PagedGrid } from "@/components/paged-grid";
-
-export const metadata: Metadata = { title: "検索結果" };
 
 const POPULAR_KEYWORDS = [
   "インパクトドライバー",
@@ -18,9 +19,8 @@ const POPULAR_KEYWORDS = [
   "包丁",
 ];
 
-export default async function SearchPage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
-  const { q } = await searchParams;
-  const query = (q ?? "").trim();
+function SearchResults() {
+  const query = (useSearchParams().get("q") ?? "").trim();
   const results = query ? searchProducts(query) : [];
 
   return (
@@ -76,5 +76,19 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         </>
       )}
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container">
+          <p style={{ padding: "40px 0", color: "var(--muted)" }}>読み込み中…</p>
+        </div>
+      }
+    >
+      <SearchResults />
+    </Suspense>
   );
 }

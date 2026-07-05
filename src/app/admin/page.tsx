@@ -90,7 +90,7 @@ export default function AdminDashboard() {
                 {orders.slice(0, 6).map((o) => (
                   <tr key={o.id}>
                     <td>
-                      <Link href={`/mypage/orders/${o.id}`} className="admin-link">{o.id}</Link>
+                      <Link href={`/mypage/order?id=${o.id}`} className="admin-link">{o.id}</Link>
                     </td>
                     <td>{formatDate(o.createdAt)}</td>
                     <td>{o.itemCount}</td>

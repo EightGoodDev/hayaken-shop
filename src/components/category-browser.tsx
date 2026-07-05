@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { Product } from "@/lib/catalog";
 import { sortProducts, SORT_LABELS, type SortKey } from "@/lib/sort";
 import { PagedGrid } from "./paged-grid";
@@ -16,8 +17,10 @@ const PRICE_BANDS: PriceBand[] = [
 ];
 
 export function CategoryBrowser({ products, initialSub }: { products: Product[]; initialSub?: string }) {
+  const urlSub = useSearchParams().get("sub") ?? undefined;
+  const startSub = initialSub ?? (urlSub && products.some((p) => p.sub === urlSub) ? urlSub : undefined);
   const [sort, setSort] = useState<SortKey>("recommended");
-  const [subs, setSubs] = useState<string[]>(initialSub ? [initialSub] : []);
+  const [subs, setSubs] = useState<string[]>(startSub ? [startSub] : []);
   const [brands, setBrands] = useState<string[]>([]);
   const [bands, setBands] = useState<string[]>([]);
   const [saleOnly, setSaleOnly] = useState(false);

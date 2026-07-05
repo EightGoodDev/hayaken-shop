@@ -19,7 +19,7 @@ export function GET() {
           fontWeight: 800,
         }}
       >
-        K
+        H
       </div>
     ),
     { width: 512, height: 512 },
