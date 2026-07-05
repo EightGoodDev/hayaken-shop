@@ -2163,6 +2163,25 @@ main {
 .drawer-foot a:hover {
   color: var(--brand-dark);
 }
+.drawer-price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 22px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+/* ドロワー内は白背景なので、価格トグルを可読な配色に上書き */
+.drawer-price .pricemode-toggle {
+  border-color: var(--line-strong);
+  background: var(--surface-2);
+  color: var(--brand-dark);
+}
+.drawer-price .pricemode-toggle:hover {
+  background: var(--brand-light);
+}
 
 /* ---------- Doc / legal pages ---------- */
 .doc {
@@ -2770,6 +2789,21 @@ main {
   }
   .catnav {
     display: none;
+  }
+  /* トップの案内バーはメッセージのみ（リンク類はハンバーガーへ集約） */
+  .header-top {
+    font-size: 11px;
+  }
+  .header-top .container {
+    justify-content: center;
+  }
+  .header-top .htop-links {
+    display: none;
+  }
+  .header-top > .container > span:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .header-main .container {
     flex-wrap: wrap;

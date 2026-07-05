@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CATEGORIES } from "@/lib/catalog";
+import { PriceModeToggle } from "./price-provider";
 
 export function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -51,6 +52,10 @@ export function MobileMenu() {
               <Link href="/stores" onClick={() => setOpen(false)}>店舗検索</Link>
               <Link href="/help" onClick={() => setOpen(false)}>ご利用ガイド</Link>
               <Link href="/contact" onClick={() => setOpen(false)}>お問い合わせ</Link>
+            </div>
+            <div className="drawer-price">
+              <span>価格表示</span>
+              <PriceModeToggle />
             </div>
           </nav>
         </div>
